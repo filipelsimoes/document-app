@@ -30,14 +30,14 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.5,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.3,
         shadowRadius: 1,
         elevation: 5,
         padding: 10,
         backgroundColor: 'white',
         marginTop: 20,
-        borderRadius: 10
+        borderRadius: 1
 
     },
     titleContainer: {

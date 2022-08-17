@@ -1,17 +1,17 @@
-import { StyleSheet, Text, View, StatusBar, FlatList } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import CustomStatusBar from '../../components/status-bar'
-import DocumentBox from '../../components/document'
 import { SafeAreaView, SafeAreaProvider, useSafeAreaInsets} from 'react-native-safe-area-context';
+import DocumentList from '../../components/list';
 
 export default function DocumentScreen() {
 
 
     const teste = [
         { title: 'ola',
-    version: 'adeus'} ,{ title: 'ola',
-    version: 'adeus'} ,{ title: 'ola',
-    version: 'adeus'} ,{ title: 'ola',
+    version: 'adeus'} ,{ title: 'ola1',
+    version: 'adeus'} ,{ title: 'ola2',
+    version: 'adeus'} ,{ title: 'ola3',
     version: 'adeus'}
     ]
 
@@ -23,14 +23,14 @@ export default function DocumentScreen() {
         </View>
 
         <View style={styles.body}>
-            <View style={styles.listContainer}>
-                <FlatList 
-                    data={teste}
-                    keyExtractor={item => item.title}
-                    renderItem={({item}) => <DocumentBox document={item}/>}
-                />
-            </View>  
+            <DocumentList data={teste}/> 
         </View>
+        <TouchableOpacity>
+             <View style={styles.addButton}>
+                <Text style={styles.addButtonLabel}>Add document</Text>
+            </View>
+        </TouchableOpacity>
+       
       </SafeAreaProvider>
      
   )
@@ -41,12 +41,23 @@ const styles = StyleSheet.create({
         display: 'flex',
         flex: 1,
     },
-    listContainer: {
-        display: 'flex',
-        marginHorizontal: 20,
-    },
     header: {
         padding: 20,
         backgroundColor: 'white',
+    },
+    addButton: {
+        // paddingHorizontal: 100,
+        paddingVertical: 10, 
+        width: '90%',
+        position: 'absolute',
+        bottom: 30,
+        backgroundColor: '#4267B2',
+        alignSelf: 'center',
+        borderRadius: 5
+    },
+    addButtonLabel: {
+        textAlign: 'center', 
+        color: 'white',
+        fontWeight: '500'
     }
 })
