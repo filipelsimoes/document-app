@@ -2,23 +2,29 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 export default function DocumentBox({document}) {
+
+    console.log("Document -> ", document);
   return (
     <View style={styles.container}>
         <View style={styles.titleContainer}>
-            <Text>{document.title}</Text> 
-            <Text>{document.version}</Text> 
+            <Text>{document.Title}</Text> 
+            <Text>{document.Version}</Text> 
         </View>
         <View style={styles.contributorsContainer}>
             <View>
                 <Text>Contributors</Text>
                 <View>
-                    <Text>Name of persons</Text>
+                    {document.Contributors.map((item) => {
+                        return ( <Text>{item.Name}</Text>)
+                    })}
                 </View>
             </View>
             <View>
                 <Text>Attachements</Text>
-                <View>
-                    <Text>...</Text>
+               <View>
+                    {document.Attachments.map((item) => {
+                        return ( <Text>{item}</Text>)
+                    })}
                 </View>
             </View>
         </View>

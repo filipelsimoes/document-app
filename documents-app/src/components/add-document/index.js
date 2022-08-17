@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DocumentPicker, {
   DirectoryPickerResponse,
@@ -8,9 +8,13 @@ import DocumentPicker, {
   types,
 } from 'react-native-document-picker'
 
-export default function AddDocument() {
+export default function AddDocument({handleClose}) {
 
     const [result, setResult] = useState();
+
+    const [name, setName] = useState('');
+    console.log("name -> ", name);
+    const [version, setVersion] = useState('');
 
     const handleFile = async () => {
          try {
@@ -34,21 +38,31 @@ export default function AddDocument() {
             throw err
         }
     }
+    useEffect(() => {
+        console.log("name 2 -> ", name)
+     } , [name]);
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
             <Text style={styles.labelTitle}>Add document</Text>
-            <Icon name="close" size={20} color="black"></Icon>
+            <TouchableOpacity onPress={() => handleClose()}>
+                <Icon name="close" size={20} color="black"></Icon>
+            </TouchableOpacity>
       </View>
       <View>
-          <Text>Document informations</Text>
+          <Text style={styles.labelSubTitle}>Document informations</Text>
           <Text>Name</Text>
-           <TextInput style={styles.textInput}/>
+           <TextInput style={styles.textInput} placeholder="Ex: John Doe" onChangeText={(event) => setName(event)} />
           <Text>Version</Text>
-          <TextInput style={styles.textInput}/>
+          <TextInput style={styles.textInput} placeholder="version X.X.X" onChangeText={(event) => setName(event)} />
           <Text>File</Text>
-          <TouchableOpacity onPress={() => handleFile()}><Text>Choose file</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => handleFile()}>
+              <View style={styles.buttonFile}>
+              <Text style={styles.labelButtonFile}>Choose file</Text>
+             <Icon name="save" size={20} color="white"></Icon>
+              </View>
+            </TouchableOpacity>
       </View>
     </View>
   )
@@ -56,7 +70,8 @@ export default function AddDocument() {
 
 const styles = StyleSheet.create({
     container: {
-        margin: 20
+        margin: 20,
+        paddingTop: 15
     },
     titleContainer: {
         display: 'flex',
@@ -65,13 +80,33 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     labelTitle: {
+        fontSize: 24,
+        fontWeight: '500',
+        marginBottom: 10
+    },
+    labelSubTitle: {
         fontSize: 16,
-        fontWeight: '500'
+        fontWeight: '500',
+        marginBottom: 10
     },
     textInput: {
         padding: 5,
         borderWidth: 1,
+        borderColor: "#cccccc",
         borderRadius: 5,
         marginVertical: 10
+    },
+    buttonFile: {
+        padding: 10,
+        width: '33%',
+        backgroundColor: '#4267B2',
+        borderRadius: 10,
+        flexDirection: 'row', 
+        justifyContent: 'space-between',
+        marginTop: 10
+    }, 
+    labelButtonFile: {
+        color: 'white',
+        fontWeight: '400'
     }
 })

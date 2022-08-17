@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import CustomStatusBar from '../../components/status-bar'
 import { SafeAreaView, SafeAreaProvider, useSafeAreaInsets} from 'react-native-safe-area-context';
 import DocumentList from '../../components/list';
@@ -7,29 +7,53 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import RBSheet from "react-native-raw-bottom-sheet";
 import AddDocument from '../../components/add-document';
 
+const axios = require('axios').default;
+
 export default function DocumentScreen() {
 
     const refRBSheet = useRef();
 
-    const teste = [
-        { title: 'ola',
-    version: 'adeus'} ,{ title: 'ola1',
-    version: 'adeus'} ,{ title: 'ola2',
-    version: 'adeus'} ,{ title: 'ola3',
-    version: 'adeus'}
-    ]
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    const [documents, setDocuments] = useState();
+
+    const handleClose = () => {
+        refRBSheet.current.close();
+        setIsDrawerOpen(false);
+    }
+
+    const handleOpen = () => {
+        refRBSheet.current.open();
+        setIsDrawerOpen(true);
+    }
+
+    const getDocuments = () => {
+        axios.get('http://localhost:8080/documents')
+            .then(function (response) {
+                // handle success
+                setDocuments(response.data);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+  })
+    }
+
+    useEffect(() => {
+        getDocuments();
+    }, [])
 
   return (
       <SafeAreaProvider>
         <CustomStatusBar backgroundColor={'white'}/>
         <View style={styles.header}>
-            <Text>Documents</Text>
+            <Text style={styles.labelTitle}>Documents</Text>
         </View>
 
-        <View style={styles.body}>
-            <DocumentList data={teste}/> 
+        <View style={[styles.body, isDrawerOpen ? {opacity: 0.5} : {opacity: 1}]}>
+            <DocumentList data={documents}/> 
         </View>
-        <TouchableOpacity onPress={() => refRBSheet.current.open()}>
+        <TouchableOpacity onPress={() => handleOpen()}>
              <View style={styles.addButton}>
                  <Icon name="plus" size={20} color="white"></Icon>
                 <Text style={styles.addButtonLabel}>Add document</Text>
@@ -38,8 +62,8 @@ export default function DocumentScreen() {
 
         <RBSheet
             ref={refRBSheet}
-            height={450}
-            closeOnDragDown={true}
+            height={350}
+            closeOnDragDown={false}
             closeOnPressMask={false}
             customStyles={{
             wrapper: {
@@ -47,10 +71,15 @@ export default function DocumentScreen() {
             },
             draggableIcon: {
                 backgroundColor: "#000"
+            },
+            container: {
+                borderTopLeftRadius: 70,
+                borderTopRightRadius: 70,
+                borderWidth: 0
             }
             }}
         >
-         <AddDocument />
+         <AddDocument handleClose={handleClose}/>
         </RBSheet>
       
  
@@ -84,5 +113,9 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: '500',
         marginLeft: 5
+    },
+    labelTitle: {
+        fontSize: 28,
+        fontWeight: '500'
     }
 })
