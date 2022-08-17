@@ -1,11 +1,15 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, {useState, useRef} from 'react'
 import CustomStatusBar from '../../components/status-bar'
 import { SafeAreaView, SafeAreaProvider, useSafeAreaInsets} from 'react-native-safe-area-context';
 import DocumentList from '../../components/list';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import RBSheet from "react-native-raw-bottom-sheet";
+import AddDocument from '../../components/add-document';
 
 export default function DocumentScreen() {
 
+    const refRBSheet = useRef();
 
     const teste = [
         { title: 'ola',
@@ -25,12 +29,31 @@ export default function DocumentScreen() {
         <View style={styles.body}>
             <DocumentList data={teste}/> 
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => refRBSheet.current.open()}>
              <View style={styles.addButton}>
+                 <Icon name="plus" size={20} color="white"></Icon>
                 <Text style={styles.addButtonLabel}>Add document</Text>
             </View>
         </TouchableOpacity>
-       
+
+        <RBSheet
+            ref={refRBSheet}
+            height={450}
+            closeOnDragDown={true}
+            closeOnPressMask={false}
+            customStyles={{
+            wrapper: {
+                backgroundColor: "transparent"
+            },
+            draggableIcon: {
+                backgroundColor: "#000"
+            }
+            }}
+        >
+         <AddDocument />
+        </RBSheet>
+      
+ 
       </SafeAreaProvider>
      
   )
@@ -46,18 +69,20 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     addButton: {
-        // paddingHorizontal: 100,
         paddingVertical: 10, 
         width: '90%',
         position: 'absolute',
         bottom: 30,
         backgroundColor: '#4267B2',
         alignSelf: 'center',
-        borderRadius: 5
+        borderRadius: 5,
+        flexDirection: 'row',
+        justifyContent:'center'
     },
     addButtonLabel: {
         textAlign: 'center', 
         color: 'white',
-        fontWeight: '500'
+        fontWeight: '500',
+        marginLeft: 5
     }
 })
