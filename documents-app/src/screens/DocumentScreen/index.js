@@ -14,8 +14,9 @@ export default function DocumentScreen() {
     const refRBSheet = useRef();
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const [documents, setDocuments] = useState();
+    const [documents, setDocuments] = useState([]);
 
     const handleClose = () => {
         refRBSheet.current.close();
@@ -27,20 +28,23 @@ export default function DocumentScreen() {
         setIsDrawerOpen(true);
     }
 
-    const getDocuments = () => {
-        axios.get('http://localhost:8080/documents')
-            .then(function (response) {
-                // handle success
+    const getDocuments = async () => {
+        setIsLoading(true)
+       await axios.get('http://localhost:8080/documents')
+            .then((response) => {
+                // console.log("response -> ", response.data);
                 setDocuments(response.data);
+                setIsLoading(false);
+                console.log("length -> ", response.data.length)
             })
-            .catch(function (error) {
-                // handle error
+            .catch((error) => {
                 console.log(error);
   })
     }
 
     useEffect(() => {
         getDocuments();
+        console.log("documents - ", documents);
     }, [])
 
   return (
@@ -51,7 +55,9 @@ export default function DocumentScreen() {
         </View>
 
         <View style={[styles.body, isDrawerOpen ? {opacity: 0.5} : {opacity: 1}]}>
-            <DocumentList data={documents}/> 
+            {!isLoading ? 
+                <DocumentList data={documents}/>  : <Text>Loading</Text>
+            }
         </View>
         <TouchableOpacity onPress={() => handleOpen()}>
              <View style={styles.addButton}>

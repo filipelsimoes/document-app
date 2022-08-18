@@ -10,10 +10,16 @@ import DocumentPicker, {
 
 export default function AddDocument({handleClose}) {
 
+    // const ws = new WebSocket('ws://localhost:8080/notifications');
+
+    // ws.onmessage = (e) => {
+    //   // a message was received
+    //   console.log("data ws -> ",e.data);
+    // };
+
     const [result, setResult] = useState();
 
     const [name, setName] = useState('');
-    console.log("name -> ", name);
     const [version, setVersion] = useState('');
 
     const handleFile = async () => {
@@ -39,7 +45,7 @@ export default function AddDocument({handleClose}) {
         }
     }
     useEffect(() => {
-        console.log("name 2 -> ", name)
+      // ws.onmessage();
      } , [name]);
 
   return (
@@ -55,7 +61,7 @@ export default function AddDocument({handleClose}) {
           <Text>Name</Text>
            <TextInput style={styles.textInput} placeholder="Ex: John Doe" onChangeText={(event) => setName(event)} />
           <Text>Version</Text>
-          <TextInput style={styles.textInput} placeholder="version X.X.X" onChangeText={(event) => setName(event)} />
+          <TextInput style={styles.textInput} placeholder="version X.X.X" onChangeText={(event) => setVersion(event)} />
           <Text>File</Text>
           <TouchableOpacity onPress={() => handleFile()}>
               <View style={styles.buttonFile}>

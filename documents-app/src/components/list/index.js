@@ -3,12 +3,17 @@ import React from 'react'
 import DocumentBox from '../document'
 
 export default function DocumentList({data}) {
+
+    console.log("lenght 2 -> ", data.length);
+
   return (
     <View style={styles.listContainer}>
                 <FlatList 
                     data={data}
-                    keyExtractor={item => item.title}
-                    renderItem={({item}) => <DocumentBox document={item} key={item.title}/>}
+                    keyExtractor={(item) => {
+                        console.log("item.id -> ", item.ID)
+                        return item.ID}}
+                    renderItem={({item}) => <DocumentBox document={item} key={item.ID}/>}
                 />
     </View> 
 )}

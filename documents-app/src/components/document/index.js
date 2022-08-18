@@ -4,7 +4,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function DocumentBox({document}) {
 
-    console.log("Document -> ", document);
+    console.log("DOCUMENT -> ", document);
+
   return (
     <View style={styles.container}>
         <View style={styles.titleContainer}>
@@ -20,7 +21,7 @@ export default function DocumentBox({document}) {
                 
                 <View>
                     {document.Contributors.map((item) => {
-                        return ( <Text>{item.Name}</Text>)
+                        return ( <Text key={item.ID} >{item.Name}</Text>)
                     })}
                 </View>
             </View>
@@ -32,7 +33,7 @@ export default function DocumentBox({document}) {
                <View style={styles.attachmentsContainer}>
                     {document.Attachments.map((item) => {
                         return (<View style={{flexDirection: 'row', flexGrow: 1, flex: 1}}>
-                             <Text style={{flexShrink: 1, flexWrap: 'wrap'}}>{item}</Text></View>)
+                             <Text style={{flexShrink: 1, flexWrap: 'wrap'}} key={item}>{item}</Text></View>)
                     })}
                 </View>
             </View>
