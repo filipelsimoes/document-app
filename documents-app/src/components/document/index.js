@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: 'white',
         marginTop: 20,
-        borderRadius: 1
+        borderRadius: 1,
+        width: '90%'
 
     },
     titleContainer: {

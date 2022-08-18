@@ -4,16 +4,16 @@ import DocumentBox from '../document'
 
 export default function DocumentList({data}) {
 
-    console.log("lenght 2 -> ", data.length);
+    console.log("length 2 -> ", data.length);
 
   return (
     <View style={styles.listContainer}>
                 <FlatList 
                     data={data}
-                    keyExtractor={(item) => {
+                    keyExtractor={(item, index) => {
                         console.log("item.id -> ", item.ID)
-                        return item.ID}}
-                    renderItem={({item}) => <DocumentBox document={item} key={item.ID}/>}
+                        return index}}
+                    renderItem={({item, index}) => <DocumentBox document={item} key={index}/>}
                 />
     </View> 
 )}
@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
     listContainer: {
         display: 'flex',
         marginHorizontal: 20,
-        width: '90%'
+        width: '100%'
     },
 })
