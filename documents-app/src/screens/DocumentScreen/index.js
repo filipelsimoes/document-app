@@ -62,7 +62,7 @@ export default function DocumentScreen() {
 
         <RBSheet
             ref={refRBSheet}
-            height={350}
+            height={450}
             closeOnDragDown={false}
             closeOnPressMask={false}
             customStyles={{

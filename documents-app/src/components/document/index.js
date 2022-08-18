@@ -11,10 +11,10 @@ export default function DocumentBox({document}) {
             <Text style={styles.titleLabel} >{document.Title}</Text> 
             <Text style={styles.versionLabel}>Version {document.Version}</Text> 
         </View>
-        <View style={styles.contributorsContainer}>
-            <View>
+        <View style={styles.bodyContainer}>
+            <View style={styles.column}>
                 <View style={styles.contributorsContainerTitle}>
-                    <Icon name="group" size={16} color="black"></Icon>
+                    <Icon name="group" size={16} color="black" style={styles.icons} ></Icon>
                 <Text>Contributors</Text>
                 </View>
                 
@@ -24,14 +24,15 @@ export default function DocumentBox({document}) {
                     })}
                 </View>
             </View>
-            <View>
-                  <View style={styles.contributorsContainerTitle}>
-                    <Icon name="file" size={16} color="black"></Icon>
-                <Text>Attachments</Text>
+            <View style={styles.column}>
+                  <View style={styles.attachementsContainerTitle}>
+                    <Icon name="file" size={16} color="black" style={styles.icons} ></Icon>
+                    <Text>Attachments</Text>
                 </View>
-               <View>
+               <View style={styles.attachmentsContainer}>
                     {document.Attachments.map((item) => {
-                        return ( <Text>{item}</Text>)
+                        return (<View style={{flexDirection: 'row', flexGrow: 1, flex: 1}}>
+                             <Text style={{flexShrink: 1, flexWrap: 'wrap'}}>{item}</Text></View>)
                     })}
                 </View>
             </View>
@@ -58,18 +59,25 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
     },
-    contributorsContainer: {
+    bodyContainer: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 10
+        marginTop: 10,
     },
     contributorsContainerTitle: {
         display: 'flex',
         flexDirection: 'row',
         marginTop: 10,
-        justifyContent: 'space-evenly',
-        width: '60%',
+        // justifyContent: 'space-between',
+        marginBottom: 10,
+    }, 
+     attachementsContainerTitle: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginTop: 10,
+        // justifyContent: 'space-evenly',
+        // width: '50%',
         marginBottom: 10
     },
     titleLabel: {
@@ -82,5 +90,14 @@ const styles = StyleSheet.create({
         color: '#808080',
         fontSize: 12,
         alignSelf: 'center'
+    },
+    attachmentsContainer:{
+        // width: '100%'
+    },
+    column: {
+        width: '50%'
+    },
+    icons: {
+        marginRight: 10
     }
 })

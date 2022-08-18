@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
 import React, {useState, useEffect} from 'react'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import DocumentPicker, {
   DirectoryPickerResponse,
   DocumentPickerResponse,
@@ -60,7 +60,12 @@ export default function AddDocument({handleClose}) {
           <TouchableOpacity onPress={() => handleFile()}>
               <View style={styles.buttonFile}>
               <Text style={styles.labelButtonFile}>Choose file</Text>
-             <Icon name="save" size={20} color="white"></Icon>
+             <Icon name="save" size={20} color="#6495ED" style={{fontWeight: '900'}}></Icon>
+              </View>
+            </TouchableOpacity>
+             <TouchableOpacity onPress={() => handleFile()}>
+              <View style={styles.buttonSubmit}>
+              <Text style={styles.labelButtonSumbit}>Sumbit</Text>
               </View>
             </TouchableOpacity>
       </View>
@@ -99,13 +104,30 @@ const styles = StyleSheet.create({
     buttonFile: {
         padding: 10,
         width: '33%',
-        backgroundColor: '#4267B2',
+        backgroundColor: 'white',
         borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#6495ED',
         flexDirection: 'row', 
         justifyContent: 'space-between',
         marginTop: 10
     }, 
     labelButtonFile: {
+        color: '#6495ED',
+        fontWeight: '900',
+        fontSize: 12,
+        alignSelf: 'center'
+    } ,
+    buttonSubmit: {
+        padding: 10,
+        width: '100%',
+        backgroundColor: '#6495ED',
+        borderRadius: 10,
+        flexDirection: 'row', 
+        justifyContent: 'center',
+        marginTop: 10
+    }, 
+    labelButtonSumbit: {
         color: 'white',
         fontWeight: '400'
     }

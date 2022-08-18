@@ -17,5 +17,6 @@ const styles = StyleSheet.create({
     listContainer: {
         display: 'flex',
         marginHorizontal: 20,
+        width: '90%'
     },
 })
