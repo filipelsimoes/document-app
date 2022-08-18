@@ -11,6 +11,13 @@ const axios = require('axios').default;
 
 export default function DocumentScreen() {
 
+    var ws = new WebSocket('ws://localhost:8080/notifications');
+
+    ws.onmessage = (e) => {
+        // a message was received
+        console.log("web socket -> ", e.data);
+    };
+
     const refRBSheet = useRef();
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
