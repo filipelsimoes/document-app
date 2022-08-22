@@ -8,27 +8,19 @@ import DocumentPicker, {
   types,
 } from 'react-native-document-picker'
 
-export default function AddDocument({handleClose}) {
+export default function AddDocument({handleClose, handleAddDocument}) {
 
-    // const ws = new WebSocket('ws://localhost:8080/notifications');
-
-    // ws.onmessage = (e) => {
-    //   // a message was received
-    //   console.log("data ws -> ",e.data);
-    // };
-
-    const [result, setResult] = useState();
-
+    const [file, setFile] = useState();
     const [name, setName] = useState('');
     const [version, setVersion] = useState('');
 
     const handleFile = async () => {
          try {
-            const pickerResult = await DocumentPicker.pickSingle({
+            const pickerResult = await DocumentPicker.pickMultiple({
               presentationStyle: 'fullScreen',
               copyTo: 'cachesDirectory',
             })
-            setResult([pickerResult])
+            setFile([pickerResult])
           } catch (e) {
             handleError(e)
           }
@@ -44,10 +36,7 @@ export default function AddDocument({handleClose}) {
             throw err
         }
     }
-    useEffect(() => {
-      // ws.onmessage();
-     } , [name]);
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -59,9 +48,9 @@ export default function AddDocument({handleClose}) {
       <View>
           <Text style={styles.labelSubTitle}>Document informations</Text>
           <Text>Name</Text>
-           <TextInput style={styles.textInput} placeholder="Ex: John Doe" onChangeText={(event) => setName(event)} />
+           <TextInput style={styles.textInput} placeholder="Ex: John Doe" onChangeText={(event) => setName(event)} value={name}/>
           <Text>Version</Text>
-          <TextInput style={styles.textInput} placeholder="version X.X.X" onChangeText={(event) => setVersion(event)} />
+          <TextInput style={styles.textInput} placeholder="version X.X.X" onChangeText={(event) => setVersion(event)} value={version}/>
           <Text>File</Text>
           <TouchableOpacity onPress={() => handleFile()}>
               <View style={styles.buttonFile}>
@@ -69,9 +58,9 @@ export default function AddDocument({handleClose}) {
              <Icon name="save" size={20} color="#6495ED" style={{fontWeight: '900'}}></Icon>
               </View>
             </TouchableOpacity>
-             <TouchableOpacity onPress={() => handleFile()}>
-              <View style={styles.buttonSubmit}>
-              <Text style={styles.labelButtonSumbit}>Sumbit</Text>
+             <TouchableOpacity style={name === "" || version === "" ? styles.buttonSubmitDisabled : styles.buttonSubmit} onPress={() => handleAddDocument(name, version, file)} disabled={name === "" || version === ""}>
+              <View>
+                <Text style={styles.labelButtonSumbit}>Sumbit</Text>
               </View>
             </TouchableOpacity>
       </View>
@@ -128,6 +117,15 @@ const styles = StyleSheet.create({
         padding: 10,
         width: '100%',
         backgroundColor: '#6495ED',
+        borderRadius: 10,
+        flexDirection: 'row', 
+        justifyContent: 'center',
+        marginTop: 10
+    }, 
+     buttonSubmitDisabled: {
+        padding: 10,
+        width: '100%',
+        backgroundColor: '#808080',
         borderRadius: 10,
         flexDirection: 'row', 
         justifyContent: 'center',

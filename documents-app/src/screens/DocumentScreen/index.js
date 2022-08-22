@@ -1,22 +1,18 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, {useState, useRef, useEffect} from 'react'
 import CustomStatusBar from '../../components/status-bar'
-import { SafeAreaView, SafeAreaProvider, useSafeAreaInsets} from 'react-native-safe-area-context';
+import { SafeAreaProvider} from 'react-native-safe-area-context';
 import DocumentList from '../../components/list';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RBSheet from "react-native-raw-bottom-sheet";
 import AddDocument from '../../components/add-document';
+import Toast from 'react-native-toast-message';
+import notifee from '@notifee/react-native';
+import Notifications from '../../components/notifications';
 
 const axios = require('axios').default;
 
-export default function DocumentScreen() {
-
-    var ws = new WebSocket('ws://localhost:8080/notifications');
-
-    ws.onmessage = (e) => {
-        // a message was received
-        console.log("web socket -> ", e.data);
-    };
+export default function DocumentScreen(props) {
 
     const refRBSheet = useRef();
 
@@ -24,6 +20,8 @@ export default function DocumentScreen() {
     const [isLoading, setIsLoading] = useState(false);
 
     const [documents, setDocuments] = useState([]);
+
+    const [numberOfNotifications, setNumberOfNotifications] = useState(props.route.params.notifications.length);
 
     const handleClose = () => {
         refRBSheet.current.close();
@@ -37,21 +35,44 @@ export default function DocumentScreen() {
 
     const getDocuments = async () => {
         setIsLoading(true)
-       await axios.get('http://localhost:8080/documents')
+        await axios.get('http://localhost:8080/documents')
             .then((response) => {
-                // console.log("response -> ", response.data);
                 setDocuments(response.data);
                 setIsLoading(false);
-                console.log("length -> ", response.data.length)
             })
             .catch((error) => {
                 console.log(error);
-  })
+        })
+    }
+
+    const handleAddDocument = (name, version, files) => {
+        setDocuments(documents => [ {Title: name, Version: version, Attachments: files}, ...documents]);
+        handleClose();
+        showToast();
+        onDisplayNotification(name, version);
+        setNumberOfNotifications(numberOfNotifications + 1);
+    }
+
+    async function onDisplayNotification(name, version) {
+        await notifee.requestPermission()
+
+        await notifee.displayNotification({
+        title: 'Document created',
+        body: 'Document ' + name + ' created with version ' + version,
+        });
+    }
+
+    const showToast = () => {
+        Toast.show({
+            type: 'success',
+            text1: 'Document created!',
+            text2: 'Check the document on the top of the list',
+            position: 'bottom'
+        });
     }
 
     useEffect(() => {
         getDocuments();
-        console.log("documents - ", documents);
     }, [])
 
   return (
@@ -59,6 +80,7 @@ export default function DocumentScreen() {
         <CustomStatusBar backgroundColor={'white'}/>
         <View style={styles.header}>
             <Text style={styles.labelTitle}>Documents</Text>
+            <Notifications  numberOfNotifications={numberOfNotifications}/>
         </View>
 
         <View style={[styles.body, isDrawerOpen ? {opacity: 0.5} : {opacity: 1}]}>
@@ -92,7 +114,7 @@ export default function DocumentScreen() {
             }
             }}
         >
-         <AddDocument handleClose={handleClose}/>
+         <AddDocument handleClose={handleClose} handleAddDocument={handleAddDocument}/>
         </RBSheet>
       
  
@@ -109,6 +131,10 @@ const styles = StyleSheet.create({
     header: {
         padding: 20,
         backgroundColor: 'white',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
     addButton: {
         paddingVertical: 10, 

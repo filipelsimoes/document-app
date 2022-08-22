@@ -4,8 +4,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function DocumentBox({document}) {
 
-    console.log("DOCUMENT -> ", document);
-
   return (
     <View style={styles.container}>
         <View style={styles.titleContainer}>
@@ -20,8 +18,8 @@ export default function DocumentBox({document}) {
                 </View>
                 
                 <View>
-                    {document.Contributors.map((item) => {
-                        return ( <Text key={item.ID} >{item.Name}</Text>)
+                    {document.Contributors && document.Contributors.map((item) => {
+                        return ( <Text key={item.ID} style={styles.attachementsText}>{item.Name}</Text>)
                     })}
                 </View>
             </View>
@@ -30,10 +28,10 @@ export default function DocumentBox({document}) {
                     <Icon name="file" size={16} color="black" style={styles.icons} ></Icon>
                     <Text>Attachments</Text>
                 </View>
-               <View style={styles.attachmentsContainer}>
-                    {document.Attachments.map((item) => {
-                        return (<View style={{flexDirection: 'row', flexGrow: 1, flex: 1}}>
-                             <Text style={{flexShrink: 1, flexWrap: 'wrap'}} key={item}>{item}</Text></View>)
+               <View>
+                    {document.Attachments && document.Attachments.map((item, index) => {
+                        return (<View style={{flexDirection: 'row', flexGrow: 1, flex: 1}} key={index}>
+                             <Text style={styles.attachementsText} >{item}</Text></View>)
                     })}
                 </View>
             </View>
@@ -60,6 +58,7 @@ const styles = StyleSheet.create({
     titleContainer: {
         display: 'flex',
         flexDirection: 'row',
+        flexWrap: 'wrap'
     },
     bodyContainer: {
         display: 'flex',
@@ -71,16 +70,18 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         marginTop: 10,
-        // justifyContent: 'space-between',
         marginBottom: 10,
     }, 
      attachementsContainerTitle: {
         display: 'flex',
         flexDirection: 'row',
         marginTop: 10,
-        // justifyContent: 'space-evenly',
-        // width: '50%',
         marginBottom: 10
+    },
+    attachementsText: {
+        color: '#808080',
+        flexShrink: 1,
+        flexWrap: 'wrap'
     },
     titleLabel: {
         fontWeight: '600',
@@ -92,9 +93,6 @@ const styles = StyleSheet.create({
         color: '#808080',
         fontSize: 12,
         alignSelf: 'center'
-    },
-    attachmentsContainer:{
-        // width: '100%'
     },
     column: {
         width: '50%'

@@ -1494,6 +1494,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     "fastq" "^1.6.0"
 
+"@notifee/react-native@^5.6.0":
+  "integrity" "sha512-MBV863fQx5qFDXKQ+3i9EkVeFAGVERmOOpk4gADx17WpZJSLNhVCnXRA1CEP0bJ4B39G6Z2SiadRl19E5GeWiQ=="
+  "resolved" "https://registry.npmjs.org/@notifee/react-native/-/react-native-5.6.0.tgz"
+  "version" "5.6.0"
+
 "@npmcli/fs@^1.0.0":
   "integrity" "sha512-8KG5RD0GVP4ydEzRn/I4BNDuxDtqVbOdm8675T49OIG/NGhaK0pjPX7ZcDlvKYbA+ulvVK3ztfcF4uBdOxuJbQ=="
   "resolved" "https://registry.npmjs.org/@npmcli/fs/-/fs-1.1.1.tgz"
@@ -5628,6 +5633,11 @@
   dependencies:
     "react-freeze" "^1.0.0"
     "warn-once" "^0.1.0"
+
+"react-native-toast-message@^2.1.5":
+  "integrity" "sha512-mk3rELtBEhrhWBCN6CTaw0gypgL9ZNauX3xx1LUs4uee9vc0pVsghrKxO57vroUCcNL2hDeZSLJWdQNMCkGeaQ=="
+  "resolved" "https://registry.npmjs.org/react-native-toast-message/-/react-native-toast-message-2.1.5.tgz"
+  "version" "2.1.5"
 
 "react-native-vector-icons@^9.2.0":
   "integrity" "sha512-wKYLaFuQST/chH3AJRjmOLoLy3JEs1JR6zMNgTaemFpNoXs0ztRnTxcxFD9xhX7cJe1/zoN5BpQYe7kL0m5yyA=="
