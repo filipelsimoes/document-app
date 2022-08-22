@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
 import React, {useState, useEffect, useRef} from 'react'
+import { colors } from '../../colors';
 
 export default function LogoScreen({navigation}) {
 
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: '900',
-        color: 'red',
+        color: colors.red,
         fontSize: 30
     }
 })

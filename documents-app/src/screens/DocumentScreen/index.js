@@ -9,6 +9,7 @@ import AddDocument from '../../components/add-document';
 import Toast from 'react-native-toast-message';
 import notifee from '@notifee/react-native';
 import Notifications from '../../components/notifications';
+import { colors } from '../../colors';
 
 const axios = require('axios').default;
 
@@ -90,7 +91,7 @@ export default function DocumentScreen(props) {
 
   return (
       <SafeAreaProvider>
-        <CustomStatusBar backgroundColor={'white'}/>
+        <CustomStatusBar backgroundColor={colors.white}/>
         <View style={styles.header}>
             <Text style={styles.labelTitle}>Documents</Text>
             <Notifications  numberOfNotifications={numberOfNotifications}/>
@@ -117,9 +118,6 @@ export default function DocumentScreen(props) {
             wrapper: {
                 backgroundColor: "transparent"
             },
-            draggableIcon: {
-                backgroundColor: "#000"
-            },
             container: {
                 borderTopLeftRadius: 70,
                 borderTopRightRadius: 70,
@@ -143,7 +141,7 @@ const styles = StyleSheet.create({
     },
     header: {
         padding: 20,
-        backgroundColor: 'white',
+        backgroundColor: colors.white,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -154,7 +152,7 @@ const styles = StyleSheet.create({
         width: '90%',
         position: 'absolute',
         bottom: 30,
-        backgroundColor: '#4267B2',
+        backgroundColor: colors.blue_facebook,
         alignSelf: 'center',
         borderRadius: 5,
         flexDirection: 'row',
@@ -162,7 +160,7 @@ const styles = StyleSheet.create({
     },
     addButtonLabel: {
         textAlign: 'center', 
-        color: 'white',
+        color: colors.white,
         fontWeight: '500',
         marginLeft: 5
     },

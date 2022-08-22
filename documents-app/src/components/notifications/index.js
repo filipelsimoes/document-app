@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { colors } from '../../colors';
 
 export default function Notifications({numberOfNotifications}) {
   return (
@@ -18,9 +19,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 5,
         top: 5,
-        backgroundColor: '#4267B2',
+        backgroundColor: colors.blue_facebook,
         borderWidth: 1,
-        borderColor: '#4267B2',
+        borderColor: colors.blue_facebook,
         borderRadius: 10,
         flex: 1,
         width: 12,
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     },
     container: {
         borderWidth: 1,
-        borderColor: '#808080',
+        borderColor: colors.grey_subTitle,
         borderRadius: 10,
         alignSelf: 'center',
         padding: 10,
