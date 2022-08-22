@@ -52,8 +52,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         marginTop: 20,
         borderRadius: 1,
-        width: '90%'
-
+        width: '90%',
     },
     titleContainer: {
         display: 'flex',

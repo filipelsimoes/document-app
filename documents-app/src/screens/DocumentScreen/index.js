@@ -71,6 +71,19 @@ export default function DocumentScreen(props) {
         });
     }
 
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    }
+
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => {
+            getDocuments();
+            setRefreshing(false)});
+    }, []);
+
     useEffect(() => {
         getDocuments();
     }, [])
@@ -85,7 +98,7 @@ export default function DocumentScreen(props) {
 
         <View style={[styles.body, isDrawerOpen ? {opacity: 0.5} : {opacity: 1}]}>
             {!isLoading ? 
-                <DocumentList data={documents}/>  : <Text>Loading</Text>
+                <DocumentList data={documents} refreshing={refreshing} onRefresh={onRefresh}/>  : <Text>Loading</Text>
             }
         </View>
         <TouchableOpacity onPress={() => handleOpen()}>
