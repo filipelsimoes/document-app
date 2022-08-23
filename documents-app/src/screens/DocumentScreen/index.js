@@ -63,6 +63,22 @@ export default function DocumentScreen(props) {
         });
     }
 
+    const handleClickNotifications = async () => {
+        await notifee.requestPermission()
+
+        props.route.params.notifications.forEach( async (notification) => {
+             await notifee.displayNotification({
+                title: 'Document created - ' + notification.DocumentTitle,
+                body: 'Created at ' + handleDate(notification.Timestamp) + ' min' + ' by ' + notification.UserName,
+                });
+        })
+    }
+
+    const handleDate = (timestamp) => {
+        let howLong = Math.abs(new Date() - new Date(timestamp));
+        return Math.round(howLong/1000/60);
+    }
+
     const showToast = () => {
         Toast.show({
             type: 'success',
@@ -87,6 +103,7 @@ export default function DocumentScreen(props) {
 
     useEffect(() => {
         getDocuments();
+
     }, [])
 
   return (
@@ -94,7 +111,7 @@ export default function DocumentScreen(props) {
         <CustomStatusBar backgroundColor={colors.white}/>
         <View style={styles.header}>
             <Text style={styles.labelTitle}>Documents</Text>
-            <Notifications  numberOfNotifications={numberOfNotifications}/>
+            <Notifications  numberOfNotifications={numberOfNotifications} handleClick={handleClickNotifications} />
         </View>
 
         <View style={[styles.body, isDrawerOpen ? {opacity: 0.5} : {opacity: 1}]}>

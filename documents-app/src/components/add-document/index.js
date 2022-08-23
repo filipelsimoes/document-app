@@ -30,7 +30,6 @@ export default function AddDocument({handleClose, handleAddDocument}) {
      const handleError = (err) => {
         if (DocumentPicker.isCancel(err)) {
             console.warn('cancelled')
-             // User cancelled the picker, exit any dialogs or menus and move on
          } else if (isInProgress(err)) {
             console.warn('multiple pickers were opened, only the last will be considered')
          } else {
