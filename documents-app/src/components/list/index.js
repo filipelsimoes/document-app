@@ -2,16 +2,21 @@ import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React from 'react'
 import DocumentBox from '../document'
 
-export default function DocumentList({data}) {
+
+
+export default function DocumentList({data, refreshing, onRefresh}) {
+
+
 
   return (
     <View style={styles.listContainer}>
         {data.length !== 0 && 
                 <FlatList 
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
                     data={data}
-                    renderItem={({item}) => {
-                        return (<DocumentBox document={item} key={item.ID}/>)}}
-                    bounces={false}
+                    contentContainerStyle={{ alignItems: 'center'}}
+                    renderItem={({item}) => <DocumentBox document={item} key={item.ID}/>}      
                 />
         }
     </View> 
@@ -19,9 +24,6 @@ export default function DocumentList({data}) {
 
 const styles = StyleSheet.create({
     listContainer: {
-        display: 'flex',
-        marginHorizontal: 20,
-        width: '100%',
-        marginBottom: 100
+        marginBottom: 100,
     },
 })

@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { colors } from '../../colors';
 
 export default function DocumentBox({document}) {
 
@@ -49,11 +50,10 @@ const styles = StyleSheet.create({
         shadowRadius: 1,
         elevation: 5,
         padding: 10,
-        backgroundColor: 'white',
+        backgroundColor: colors.white,
         marginTop: 20,
         borderRadius: 1,
-        width: '90%'
-
+        width: '90%',
     },
     titleContainer: {
         display: 'flex',
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     attachementsText: {
-        color: '#808080',
+        color: colors.grey_subTitle,
         flexShrink: 1,
         flexWrap: 'wrap'
     },
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     versionLabel: {
         fontWeight: '600',
         marginRight: 5,
-        color: '#808080',
+        color: colors.grey_subTitle,
         fontSize: 12,
         alignSelf: 'center'
     },

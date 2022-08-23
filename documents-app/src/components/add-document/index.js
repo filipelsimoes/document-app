@@ -7,6 +7,7 @@ import DocumentPicker, {
   isInProgress,
   types,
 } from 'react-native-document-picker'
+import {colors} from '../../colors';
 
 export default function AddDocument({handleClose, handleAddDocument}) {
 
@@ -29,7 +30,6 @@ export default function AddDocument({handleClose, handleAddDocument}) {
      const handleError = (err) => {
         if (DocumentPicker.isCancel(err)) {
             console.warn('cancelled')
-             // User cancelled the picker, exit any dialogs or menus and move on
          } else if (isInProgress(err)) {
             console.warn('multiple pickers were opened, only the last will be considered')
          } else {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: 'white'
+        backgroundColor: colors.white
     },
     labelTitle: {
         fontSize: 24,
@@ -92,23 +92,23 @@ const styles = StyleSheet.create({
     textInput: {
         padding: 5,
         borderWidth: 1,
-        borderColor: "#cccccc",
+        borderColor: colors.grey_subTitle,
         borderRadius: 5,
         marginVertical: 10
     },
     buttonFile: {
         padding: 10,
         width: '33%',
-        backgroundColor: 'white',
+        backgroundColor: colors.white,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#6495ED',
+        borderColor: colors.blue_facebook,
         flexDirection: 'row', 
         justifyContent: 'space-between',
         marginTop: 10
     }, 
     labelButtonFile: {
-        color: '#6495ED',
+        color: colors.blue_facebook,
         fontWeight: '900',
         fontSize: 12,
         alignSelf: 'center'
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     buttonSubmit: {
         padding: 10,
         width: '100%',
-        backgroundColor: '#6495ED',
+        backgroundColor: colors.blue_facebook,
         borderRadius: 10,
         flexDirection: 'row', 
         justifyContent: 'center',
@@ -125,14 +125,14 @@ const styles = StyleSheet.create({
      buttonSubmitDisabled: {
         padding: 10,
         width: '100%',
-        backgroundColor: '#808080',
+        backgroundColor: colors.grey_subTitle,
         borderRadius: 10,
         flexDirection: 'row', 
         justifyContent: 'center',
         marginTop: 10
     }, 
     labelButtonSumbit: {
-        color: 'white',
+        color: colors.white,
         fontWeight: '400'
     }
 })

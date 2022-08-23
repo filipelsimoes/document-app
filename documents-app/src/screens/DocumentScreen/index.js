@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useRef, useEffect, useCallback} from 'react'
 import CustomStatusBar from '../../components/status-bar'
 import { SafeAreaProvider} from 'react-native-safe-area-context';
 import DocumentList from '../../components/list';
@@ -9,6 +9,7 @@ import AddDocument from '../../components/add-document';
 import Toast from 'react-native-toast-message';
 import notifee from '@notifee/react-native';
 import Notifications from '../../components/notifications';
+import { colors } from '../../colors';
 
 const axios = require('axios').default;
 
@@ -22,6 +23,7 @@ export default function DocumentScreen(props) {
     const [documents, setDocuments] = useState([]);
 
     const [numberOfNotifications, setNumberOfNotifications] = useState(props.route.params.notifications.length);
+    console.log("notifications -> ", props.route.params.notifications.length)
 
     const handleClose = () => {
         refRBSheet.current.close();
@@ -62,6 +64,22 @@ export default function DocumentScreen(props) {
         });
     }
 
+    const handleClickNotifications = async () => {
+        await notifee.requestPermission()
+
+        props.route.params.notifications.forEach( async (notification) => {
+             await notifee.displayNotification({
+                title: 'Document created - ' + notification.DocumentTitle,
+                body: 'Created at ' + handleDate(notification.Timestamp) + ' min' + ' by ' + notification.UserName,
+                });
+        })
+    }
+
+    const handleDate = (timestamp) => {
+        let howLong = Math.abs(new Date() - new Date(timestamp));
+        return Math.round(howLong/1000/60);
+    }
+
     const showToast = () => {
         Toast.show({
             type: 'success',
@@ -71,21 +89,35 @@ export default function DocumentScreen(props) {
         });
     }
 
+    const wait = (timeout) => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    }
+
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => {
+            getDocuments();
+            setRefreshing(false)});
+    }, []);
+
     useEffect(() => {
         getDocuments();
+
     }, [])
 
   return (
       <SafeAreaProvider>
-        <CustomStatusBar backgroundColor={'white'}/>
+        <CustomStatusBar backgroundColor={colors.white}/>
         <View style={styles.header}>
             <Text style={styles.labelTitle}>Documents</Text>
-            <Notifications  numberOfNotifications={numberOfNotifications}/>
+            <Notifications  numberOfNotifications={numberOfNotifications} handleClick={handleClickNotifications} />
         </View>
 
         <View style={[styles.body, isDrawerOpen ? {opacity: 0.5} : {opacity: 1}]}>
             {!isLoading ? 
-                <DocumentList data={documents}/>  : <Text>Loading</Text>
+                <DocumentList data={documents} refreshing={refreshing} onRefresh={onRefresh}/>  : <Text>Loading</Text>
             }
         </View>
         <TouchableOpacity onPress={() => handleOpen()}>
@@ -103,9 +135,6 @@ export default function DocumentScreen(props) {
             customStyles={{
             wrapper: {
                 backgroundColor: "transparent"
-            },
-            draggableIcon: {
-                backgroundColor: "#000"
             },
             container: {
                 borderTopLeftRadius: 70,
@@ -130,7 +159,7 @@ const styles = StyleSheet.create({
     },
     header: {
         padding: 20,
-        backgroundColor: 'white',
+        backgroundColor: colors.white,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -141,7 +170,7 @@ const styles = StyleSheet.create({
         width: '90%',
         position: 'absolute',
         bottom: 30,
-        backgroundColor: '#4267B2',
+        backgroundColor: colors.blue_facebook,
         alignSelf: 'center',
         borderRadius: 5,
         flexDirection: 'row',
@@ -149,7 +178,7 @@ const styles = StyleSheet.create({
     },
     addButtonLabel: {
         textAlign: 'center', 
-        color: 'white',
+        color: colors.white,
         fontWeight: '500',
         marginLeft: 5
     },
