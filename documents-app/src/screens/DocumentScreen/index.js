@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useRef, useEffect, useCallback} from 'react'
 import CustomStatusBar from '../../components/status-bar'
 import { SafeAreaProvider} from 'react-native-safe-area-context';
 import DocumentList from '../../components/list';
@@ -23,6 +23,7 @@ export default function DocumentScreen(props) {
     const [documents, setDocuments] = useState([]);
 
     const [numberOfNotifications, setNumberOfNotifications] = useState(props.route.params.notifications.length);
+    console.log("notifications -> ", props.route.params.notifications.length)
 
     const handleClose = () => {
         refRBSheet.current.close();
@@ -92,9 +93,9 @@ export default function DocumentScreen(props) {
         return new Promise(resolve => setTimeout(resolve, timeout));
     }
 
-    const [refreshing, setRefreshing] = React.useState(false);
+    const [refreshing, setRefreshing] = useState(false);
 
-    const onRefresh = React.useCallback(() => {
+    const onRefresh = useCallback(() => {
         setRefreshing(true);
         wait(2000).then(() => {
             getDocuments();

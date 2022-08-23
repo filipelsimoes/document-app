@@ -34,8 +34,8 @@ export default function LogoScreen({navigation}) {
     }, [isPaused]);
 
     const handleNextPage = () => {
+        setPause(true);
         navigation.navigate('DocumentScreen', {notifications: notifications});
-        setPause(!isPaused);
     }
 
   return (
