@@ -13,15 +13,15 @@ Functionalities of the app:
   1. See documents that where sended by the backend provided
   2. Add a document (just local state), when adding you will be notified via toast and notification to the iphone.
   3. Receive notifications via websocket. To display the notifications you should click in the notifications icon on the right top corner.
-These notifications are being store in the Logo Screen. After change screening this notifications stop being storaged, so if you stay more time on the
-LogoScreen you will have more notifications (You can check the number near the icon). After clicking you will receive avery notification storage.
+These notifications are being store in the Logo Screen. After change screening this notifications stop being stored, so if you stay more time on the
+LogoScreen you will have more notifications (You can check the number near the icon). After clicking you will receive every notification stored.
 
 The app consists in two screens: 
   
     1. Documents App - Just a logo screen
     2. The documents screen - Here you can see all the documents, notifications (by clicking on the notification icon) and add a document.
     
- When adding a document, you need to insert a name and a version (mandatory), and you can also add documents that are storage in your iphone.
+ When adding a document, you need to insert a name and a version (mandatory), and you can also add documents that are stored in your iphone.
  
  Libraries used: 
  
