@@ -1,6 +1,10 @@
 # document-app
 
-The app should be run in a iphone emulator. Command to run the project: yarn ios (Need to have xcode). Before running need to do the following commans:
+The app should be run in a iphone emulator. Command to run the project: 
+
+    yarn ios 
+    
+(Need to have xcode). Before running need to do the following commans:
   
    1. npm install
    2. cd ios pod install
