@@ -50,14 +50,14 @@ Stucture of the App:
   I had a problem using Jest and had the followinfg error and i was not capable of resolving.
   So i not have done the testing of the app.
   
-   /Users/alexandrasimoes/documents-app/node_modules/@react-native/polyfills/error-guard.js:14
-    type ErrorHandler = (error: mixed, isFatal: boolean) => void;
+      /Users/alexandrasimoes/documents-app/node_modules/@react-native/polyfills/error-guard.js:14
+      type ErrorHandler = (error: mixed, isFatal: boolean) => void;
          ^^^^^^^^^^^^
 
-    SyntaxError: Unexpected identifier
+      SyntaxError: Unexpected identifier
     
     
-    Any question you can contact me via email: filipe.simoes@live.com.pt
+Any question you can contact me via email: filipe.simoes@live.com.pt
  
  
  
