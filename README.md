@@ -6,8 +6,8 @@ The app should be run in a iphone emulator. Command to run the project:
     
 (Need to have xcode). Before running need to do the following commans:
   
-   1. npm install
-   2. cd ios pod install
+        npm install
+        cd ios pod install
 
 This app consists in a example app for see documents and add documents.
 When you add a document you will be notifified.
